@@ -77,10 +77,29 @@ func (r MarsRover) coordinates() Coordinates {
 }
 
 func (r *MarsRover) forward() {
-
+	switch r.heading {
+	case 0:
+		r.position.y += 1
+	case 1:
+		r.position.x += 1
+	case 2:
+		r.position.y -= 1
+	case 3:
+		r.position.x -= 1
+	}
 }
 
 func (r *MarsRover) backward() {
+	switch r.heading {
+	case 0:
+		r.position.y -= 1
+	case 1:
+		r.position.x -= 1
+	case 2:
+		r.position.y += 1
+	case 3:
+		r.position.x += 1
+	}
 
 }
 
