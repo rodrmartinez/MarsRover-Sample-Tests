@@ -1,6 +1,8 @@
 package marsrover
 
-import "fmt"
+import (
+	"strconv"
+)
 
 type Coordinates struct {
 	x int
@@ -61,8 +63,9 @@ type MarsRover struct {
 	status   Status
 }
 
-func (r MarsRover) currentLocation() interface{} {
-	return ""
+func (r *MarsRover) currentLocation() interface{} {
+	location := strconv.Itoa(r.position.x) + " " + strconv.Itoa(r.position.y) + " " + r.heading.String()
+	return location
 }
 
 func (r MarsRover) acceptCommands(commands []Command) {
@@ -73,18 +76,17 @@ func (r MarsRover) coordinates() Coordinates {
 	return Coordinates{0, 0}
 }
 
-func (r MarsRover) forward() {
+func (r *MarsRover) forward() {
 
 }
 
-func (r MarsRover) backward() {
+func (r *MarsRover) backward() {
 
 }
 
 func (r *MarsRover) turnRight() {
 	if r.heading < 3 {
 		r.heading += 1
-		fmt.Println(r)
 	} else {
 		r.heading = 0
 	}
