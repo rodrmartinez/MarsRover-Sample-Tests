@@ -1,5 +1,7 @@
 package marsrover
 
+import "fmt"
+
 type Coordinates struct {
 	x int
 	y int
@@ -79,7 +81,13 @@ func (r MarsRover) backward() {
 
 }
 
-func (r MarsRover) turnRight() {
+func (r *MarsRover) turnRight() {
+	if r.heading < 3 {
+		r.heading += 1
+		fmt.Println(r)
+	} else {
+		r.heading = 0
+	}
 
 }
 
