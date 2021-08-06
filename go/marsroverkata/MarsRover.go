@@ -70,6 +70,7 @@ func (r *MarsRover) currentLocation() interface{} {
 
 func (r *MarsRover) acceptCommands(commands []Command) {
 	for _, command := range commands {
+
 		switch command {
 		case 0:
 			r.backward()
@@ -120,15 +121,30 @@ func (r *MarsRover) forward() {
 func (r *MarsRover) backward() {
 	switch r.heading {
 	case 0:
-		r.position.y -= 1
+		if r.position.y == 0 {
+			r.position.y = r.plateau.maxY
+		} else {
+			r.position.y -= 1
+		}
 	case 1:
-		r.position.x -= 1
+		if r.position.x == 0 {
+			r.position.x = r.plateau.maxX
+		} else {
+			r.position.x -= 1
+		}
 	case 2:
-		r.position.y += 1
+		if r.position.y == r.plateau.maxY {
+			r.position.y = 0
+		} else {
+			r.position.y += 1
+		}
 	case 3:
-		r.position.x += 1
+		if r.position.x == r.plateau.maxX {
+			r.position.x = 0
+		} else {
+			r.position.x += 1
+		}
 	}
-
 }
 
 func (r *MarsRover) turnRight() {
