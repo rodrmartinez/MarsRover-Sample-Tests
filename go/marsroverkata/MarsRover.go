@@ -117,12 +117,6 @@ func (r *MarsRover) forward() {
 			newCoordinates.x -= 1
 		}
 	}
-	for _, obstacle := range r.plateau.obstacles {
-		if obstacle.position.x == newCoordinates.x && obstacle.position.y == newCoordinates.y {
-			r.status = 1
-			newCoordinates = r.position
-		}
-	}
 	r.checkForObstacles(newCoordinates)
 }
 
