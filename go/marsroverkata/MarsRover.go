@@ -82,7 +82,6 @@ func (r *MarsRover) acceptCommands(commands []Command) {
 			r.turnRight()
 		}
 	}
-
 }
 
 func (r *MarsRover) coordinates() Coordinates {
@@ -90,61 +89,65 @@ func (r *MarsRover) coordinates() Coordinates {
 }
 
 func (r *MarsRover) forward() {
+	newCoordinates := r.position
 	switch r.heading {
 	case 0:
 		if r.position.y == r.plateau.maxY {
-			r.position.y = 0
+			newCoordinates.y = 0
 		} else {
-			r.position.y += 1
+			newCoordinates.y += 1
 		}
 	case 1:
 		if r.position.x == r.plateau.maxX {
-			r.position.x = 0
+			newCoordinates.x = 0
 		} else {
-			r.position.x += 1
+			newCoordinates.x += 1
 		}
 	case 2:
 		if r.position.y == 0 {
-			r.position.y = r.plateau.maxY
+			newCoordinates.y = r.plateau.maxY
 		} else {
-			r.position.y -= 1
+			newCoordinates.y -= 1
 		}
 	case 3:
 		if r.position.x == 0 {
-			r.position.x = r.plateau.maxX
+			newCoordinates.x = r.plateau.maxX
 		} else {
-			r.position.x -= 1
+			newCoordinates.x -= 1
 		}
 	}
+	r.position = newCoordinates
 }
 
 func (r *MarsRover) backward() {
+	newCoordinates := r.position
 	switch r.heading {
 	case 0:
 		if r.position.y == 0 {
-			r.position.y = r.plateau.maxY
+			newCoordinates.y = r.plateau.maxY
 		} else {
-			r.position.y -= 1
+			newCoordinates.y -= 1
 		}
 	case 1:
 		if r.position.x == 0 {
-			r.position.x = r.plateau.maxX
+			newCoordinates.x = r.plateau.maxX
 		} else {
-			r.position.x -= 1
+			newCoordinates.x -= 1
 		}
 	case 2:
 		if r.position.y == r.plateau.maxY {
-			r.position.y = 0
+			newCoordinates.y = 0
 		} else {
-			r.position.y += 1
+			newCoordinates.y += 1
 		}
 	case 3:
 		if r.position.x == r.plateau.maxX {
-			r.position.x = 0
+			newCoordinates.x = 0
 		} else {
-			r.position.x += 1
+			newCoordinates.x += 1
 		}
 	}
+	r.position = newCoordinates
 }
 
 func (r *MarsRover) turnRight() {
