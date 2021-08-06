@@ -81,6 +81,7 @@ func (r *MarsRover) acceptCommands(commands []Command) {
 		case 3:
 			r.turnRight()
 		}
+
 	}
 }
 
@@ -116,7 +117,13 @@ func (r *MarsRover) forward() {
 			newCoordinates.x -= 1
 		}
 	}
-	r.position = newCoordinates
+	for _, obstacle := range r.plateau.obstacles {
+		if obstacle.position.x == newCoordinates.x && obstacle.position.y == newCoordinates.y {
+			r.status = 1
+			newCoordinates = r.position
+		}
+	}
+	r.checkForObstacles(newCoordinates)
 }
 
 func (r *MarsRover) backward() {
@@ -147,7 +154,17 @@ func (r *MarsRover) backward() {
 			newCoordinates.x += 1
 		}
 	}
-	r.position = newCoordinates
+	r.checkForObstacles(newCoordinates)
+}
+
+func (r *MarsRover) checkForObstacles(coordinates Coordinates) {
+	for _, obstacle := range r.plateau.obstacles {
+		if obstacle.position.x == coordinates.x && obstacle.position.y == coordinates.y {
+			r.status = 1
+			coordinates = r.position
+		}
+	}
+	r.position = coordinates
 }
 
 func (r *MarsRover) turnRight() {
