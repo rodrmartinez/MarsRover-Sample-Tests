@@ -12,6 +12,15 @@ type Printer interface {
 	PrintRover() string
 }
 
+func (r MarsRover) PrintRover() string {
+	printer := generateGrid(r.plateau)
+	printer.addRover(r)
+	printer.addObstacles(r.plateau.obstacles)
+	output := r.plateau.PrintPlateau(printer) + "\n"
+	output += "-----------------\n"
+	return output
+}
+
 func (p Plateau) PrintPlateau(grid Grid) string {
 	axisX := generateAxis(p.maxX)
 	axisY := generateAxis(p.maxY)
@@ -35,6 +44,21 @@ func (g Grid) addObstacles(obstacles []Obstacle) {
 	for _, obstacle := range obstacles {
 		g[obstacle.position.x][obstacle.position.y] = "*"
 	}
+}
+
+func (g Grid) addRover(rover MarsRover) {
+	char := ""
+	switch rover.heading {
+	case 0:
+		char = "^"
+	case 1:
+		char = ">"
+	case 2:
+		char = "v"
+	case 3:
+		char = "<"
+	}
+	g[rover.position.x][rover.position.y] = char
 }
 
 func generateGrid(p Plateau) Grid {

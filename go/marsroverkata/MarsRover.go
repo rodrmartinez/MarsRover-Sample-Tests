@@ -68,21 +68,23 @@ func (r *MarsRover) currentLocation() interface{} {
 	return location
 }
 
-func (r *MarsRover) acceptCommands(commands []Command) {
+func (r *MarsRover) acceptCommands(commands []Command) string {
+	output := r.PrintRover()
 	for _, command := range commands {
-
 		switch command {
 		case 0:
 			r.backward()
 		case 1:
 			r.forward()
+
 		case 2:
 			r.turnLeft()
 		case 3:
 			r.turnRight()
 		}
-
+		output += r.PrintRover()
 	}
+	return output
 }
 
 func (r *MarsRover) coordinates() Coordinates {
