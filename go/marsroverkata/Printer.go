@@ -48,15 +48,19 @@ func (g Grid) addObstacles(obstacles []Obstacle) {
 
 func (g Grid) addRover(rover MarsRover) {
 	char := ""
-	switch rover.heading {
-	case 0:
-		char = "^"
-	case 1:
-		char = ">"
-	case 2:
-		char = "v"
-	case 3:
-		char = "<"
+	if rover.status != 1 {
+		switch rover.heading {
+		case 0:
+			char = "^"
+		case 1:
+			char = ">"
+		case 2:
+			char = "v"
+		case 3:
+			char = "<"
+		}
+	} else {
+		char = "NOK"
 	}
 	g[rover.position.x][rover.position.y] = char
 }
