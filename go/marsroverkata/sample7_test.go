@@ -3,6 +3,7 @@ package marsrover
 import (
 	"testing"
 
+	approvaltests "github.com/approvals/go-approval-tests"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -15,8 +16,8 @@ func TestObstacleForward(t *testing.T) {
 	marsRover := MarsRover{plateau: plateau, heading: N, position: startingPosition}
 
 	commands := []Command{F, F, F, F, F, F}
-	marsRover.acceptCommands(commands)
 
+	approvaltests.VerifyString(t, marsRover.acceptCommands(commands))
 	assert.Equal(t, "NOK", marsRover.status.String())
 	assert.Equal(t, "0 2 N", marsRover.currentLocation())
 }
@@ -30,8 +31,8 @@ func TestObstacleBackward(t *testing.T) {
 	marsRover := MarsRover{plateau: plateau, heading: N, position: startingPosition}
 
 	commands := []Command{B, B, B, B, B, B}
-	marsRover.acceptCommands(commands)
 
+	approvaltests.VerifyString(t, marsRover.acceptCommands(commands))
 	assert.Equal(t, "NOK", marsRover.status.String())
 	assert.Equal(t, "5 4 N", marsRover.currentLocation())
 }
@@ -45,8 +46,8 @@ func TestObstacleBackward2(t *testing.T) {
 	marsRover := MarsRover{plateau: plateau, heading: E, position: startingPosition}
 
 	commands := []Command{B, B, B, B, B, B}
-	marsRover.acceptCommands(commands)
 
+	approvaltests.VerifyString(t, marsRover.acceptCommands(commands))
 	assert.Equal(t, "NOK", marsRover.status.String())
 	assert.Equal(t, "3 5 E", marsRover.currentLocation())
 }
